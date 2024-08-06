@@ -5,7 +5,7 @@ const telefone = document.querySelector("#telefone");
 const btn = document.querySelector("button");
 
 const pai = document.getElementsByClassName("cadastrados")[0];
-
+let nextId = 1;
 btn.addEventListener("click", async (e) => {
   e.preventDefault();
 
@@ -14,15 +14,18 @@ btn.addEventListener("click", async (e) => {
   const telefoneInput = telefone.value;
 
   const filho = `
-    <div>
-                        <p>Nome: ${nomeInput}</p>
-                        <p>Email: ${emailInput}</p>
-                        <p>Telefone: ${telefoneInput}</p>
-                        <button class = "del">Deletar</button>
-                         
-                    </div>
-                    <br>
-                   
+    <div id="${nextId}" class="cadastrado">
+        <div>
+          <p>Nome: ${nomeInput}</p>
+          <p>Email: ${emailInput}</p>
+          <p>Telefone: ${telefoneInput}</p>
+        </div>
+        <button class="del">
+          <span class="material-symbols-outlined">
+            delete
+          </span>
+        </button>
+    </div>             
   `;
 
   if (!nomeInput || !emailInput || !telefoneInput) {
@@ -30,7 +33,11 @@ btn.addEventListener("click", async (e) => {
     // window.location.reload()
   } else {
     pai.innerHTML += filho;
+    nome.value = "";
+    email.value = "";
+    telefone.value = "";
     funcDeletar();
+    nextId += 1;
   }
 });
 
@@ -43,11 +50,20 @@ async function funcDeletar() {
     for (let index = 0; index < deletar.length; index++) {
       deletar[index].addEventListener("click", (e) => {
         e.preventDefault();
-        console.log("div parent", deletar[index].parentElement);
+        try {
+          document.getElementById(deletar[index].parentElement.id).remove();
+        } catch (error) {
+          console.log("caiu no erro");
+          document.getElementById(deletar[0].parentElement.id).remove();
+        }
 
-        deletar[index].parentElement.remove();
+        // document.getElementById(deletar[index].id).parentElement.remove();
+        // console.log("clicou no botao");
+
+        // console.log("div parent", deletar[index].parentElement);
+
+        // deletar[index].parentElement.remove();
       });
-      console.log(deletar[index]);
     }
   }
 }
