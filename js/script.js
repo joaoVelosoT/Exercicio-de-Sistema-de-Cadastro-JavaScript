@@ -1,18 +1,23 @@
+// Chamando os elementos do HTML para poder manipular no JS
 const nome = document.querySelector("#nome");
 const email = document.querySelector("#email");
 const telefone = document.querySelector("#telefone");
-
 const btn = document.querySelector("button");
-
 const pai = document.getElementsByClassName("cadastrados")[0];
+
+// Criando uma variavel para simular um ID único
 let nextId = 1;
+
+// Adicionando um evento para a ação de clicar no botão de criar
 btn.addEventListener("click", async (e) => {
   e.preventDefault();
 
+  // Criando variavel com o valor de cada input
   const nomeInput = nome.value;
   const emailInput = email.value;
   const telefoneInput = telefone.value;
 
+  // Criando uma varivel com um modelo do container do usuario
   const filho = `
     <div id="${nextId}" class="cadastrado">
         <div>
@@ -28,42 +33,46 @@ btn.addEventListener("click", async (e) => {
     </div>             
   `;
 
+  // Fazendo uma validação para verificar se os inputs estão vazios
   if (!nomeInput || !emailInput || !telefoneInput) {
     alert("Algum campo esta em branco");
     // window.location.reload()
   } else {
+    // Adicionando o elemento do container do usuario no HTML
     pai.innerHTML += filho;
+
+    // Deixando as caixas do input vazias
     nome.value = "";
     email.value = "";
     telefone.value = "";
+
+    // Executando a função de deletar
     funcDeletar();
+
+    // Mudando o ID
     nextId += 1;
+
+    // Enviando mensagem para o usuario
+    console.log("Usuario adicionado...");
   }
 });
 
+// Chamando o elemento do HTML para poder manipular no JS
 const deletar = document.getElementsByClassName("del");
 
+// Criando uma função de deletar
 async function funcDeletar() {
-  if (deletar) {
-    console.log(deletar);
-
-    for (let index = 0; index < deletar.length; index++) {
-      deletar[index].addEventListener("click", (e) => {
-        e.preventDefault();
-        try {
-          document.getElementById(deletar[index].parentElement.id).remove();
-        } catch (error) {
-          console.log("caiu no erro");
-          document.getElementById(deletar[0].parentElement.id).remove();
-        }
-
-        // document.getElementById(deletar[index].id).parentElement.remove();
-        // console.log("clicou no botao");
-
-        // console.log("div parent", deletar[index].parentElement);
-
-        // deletar[index].parentElement.remove();
-      });
-    }
+  for (let index = 0; index < deletar.length; index++) {
+    // Adicionando evento no botao de deletar
+    deletar[index].addEventListener("click", (e) => {
+      e.preventDefault();
+      if (deletar.length === 1) {
+        console.log("Usuario Deletado...");
+        document.getElementById(deletar[0].parentElement.id).remove();
+      } else {
+        console.log("Usuario Deletado...");
+        document.getElementById(deletar[index].parentElement.id).remove();
+      }
+    });
   }
 }
