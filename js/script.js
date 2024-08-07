@@ -59,6 +59,7 @@ btn.addEventListener("click", async (e) => {
 
 // Chamando o elemento do HTML para poder manipular no JS
 const deletar = document.getElementsByClassName("del");
+console.log(deletar);
 
 // Criando uma função de deletar
 async function funcDeletar() {

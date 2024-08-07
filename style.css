@@ -20,7 +20,7 @@ body {
     justify-content: center;
     align-items: center;
     border: 1px solid black;
-
+    margin-top: 300px;
 }
 
 header {
@@ -110,7 +110,13 @@ header {
     margin-left: 15px;
 }
 
+
+
 .material-symbols-outlined {
     /* background-color: red; */
     color: red;
+}
+
+.material-symbols-outlined:hover {
+    cursor: pointer;
 }
